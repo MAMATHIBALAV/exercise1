@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Input to JSON File</title>
+    <style>
+        label{
+            width: 150px;
+            display: inline-block;
+        }
+        
+        .mydiv {
+            border: 2px solid black;
+        margin: 20px;
+        padding: 50px;
+        width: 50%;
+        align-content: centre;
+        left:20%;
+        right: 20%;
+        position: absolute;
+        background-color:lightblue;
+        border-radius: 25px; 
+       
+  text-align: center;
+}
+        body{
+          
+            text-align: center;
+            font-size: large;
+            padding-top: 5%;
+            
+            
+      
+           
+        }
+    </style>
+</head>
+<body>
+   <div class="mydiv">
+     
+        <centre>
+        <p style="font-size: x-large;"><b>JSON CONVERTOR</b></p>
+
+    <form id="userInputForm">
+        <br><label for="name" ><b>First Name:</b></label>
+        <input type="text" name="name" id="name" style="font-size: large;align:center; " >
+        </br>
+        <br><label for="name"><b>Last Name:</b></label>
+        <input type="text" name="name" id="name" style="font-size: large; align: center;" >
+        </br>
+        <br>
+        <label for="email" ><b>Email:</b></label>
+        <input type="email" name="email" id="email" style="font-size: large; align: center; align:center; " placeholder="abc@gmail.com" >
+        </br>
+        <br>
+        <label for="phone number"><b>phone number:</b></label>
+        <input type="tel" id="phone" name="phone"   style="font-size: large;">
+      
+    </br>
+        <br>
+
+        <label for="age"><b>Age:</b></label>
+        <input type="number" name="age" id="age" style="font-size: large;">
+        </br>
+        <br>
+
+        <label for="place" ><b>Place:</b></label>
+        <input type="text" name="place" id="place" style="font-size: large;">
+        </br>
+        <br>
+           <button type="button" onclick="getUserInput()" style="font-size: large;"><b>convert to JSON</b></button>
+           </br>
+           
+        
+    </form>
+
+    <script>
+        function getUserInput() {
+            var formData = {};
+            var formElements = document.getElementById("userInputForm").elements;
+
+            for (var i = 0; i < formElements.length; i++) {
+                var element = formElements[i];
+
+                if (element.type !== "button") {
+                    formData[element.name] = element.value;
+                }
+            }
+
+            var jsonData = JSON.stringify(formData, null, 2);
+            
+            // Creating a Blob (Binary Large Object) from the JSON data
+            var blob = new Blob([jsonData], { type: "application/json" });
+
+            // Creating a temporary anchor element
+            var a = document.createElement("a");
+            a.href = URL.createObjectURL(blob);
+            a.download = "user_input.json";
+
+            // Appending the anchor to the body and programmatically clicking it
+            document.body.appendChild(a);
+            a.click();
+
+            // Removing the anchor from the body
+            document.body.removeChild(a);
+        }
+
+    </script>
+    </centre>
+    </div>
+
+</body>
+</html>
+
